@@ -1,0 +1,19 @@
+<% include ../partials/upper %>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h4>Register</h4>
+    </div>
+    <div class="offset-2 col-8 offset-sm-3 col-sm-6 offset-md-4 col-md-4">
+        <div class="container">
+            <form class="form-group" action="/register" method="POST">
+                <input class="form-control form-group" type="text" name="username" placeholder="username">
+                <input class="form-control form-group" type="password" name="password" placeholder="password">
+                <button class="btn btn-block btn-lg btn-custom" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/lower %>

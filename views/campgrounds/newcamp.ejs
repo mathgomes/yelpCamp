@@ -1,0 +1,24 @@
+<% include ../partials/upper %>
+
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h4>Create a new Campground</h4>
+    </div>
+    <div class="offset-2 col-8 offset-sm-3 col-sm-6 offset-md-4 col-md-4">
+        <div class="container">
+            <form class="form-group" method="POST" action="/campgrounds">
+                <input class="form-control form-group" type="text" name="camp[name]" placeholder="Name">
+                <input class="form-control form-group" type="text" name="camp[image]" placeholder="Image">
+                <input class="form-control form-group" type="number" name="camp[price]" placeholder="Price" min="0.01">
+                <textarea class="form-control form-group" name="camp[description]" placeholder="Description"></textarea>
+                <button class="btn btn-block btn-lg btn-custom"type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<a href="/campgrounds">Back to campgrounds list</a>
+
+<% include ../partials/lower %>

@@ -1,0 +1,24 @@
+<% include ../partials/upper %>
+
+
+<div class="row addForm">
+    <div class="col-12 text-center">
+        <h4>Edit <%= campground.name %></h4>
+    </div>
+    <div class="offset-2 col-8 offset-sm-3 col-sm-6 offset-md-4 col-md-4">
+        <div class="container">
+            <form class="form-group" method="POST" action="/campgrounds/<%= campground.id %>?_method=PUT">
+                <input class="form-control form-group" type="text" name="camp[name]" value="<%= campground["name"] %>" >
+                <input class="form-control form-group" type="text" name="camp[image]" value="<%= campground["image"] %>">
+                <input class="form-control form-group" type="number" name="camp[price]" value="<%= campground["price"] %>">
+                <textarea class="form-control form-group" name="camp[description]" value="<%= campground["description"] %>"></textarea>
+                <button class="btn btn-block btn-lg btn-custom"type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<a href="/campgrounds">Back to campgrounds list</a>
+
+<% include ../partials/lower %>
