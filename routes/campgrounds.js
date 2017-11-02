@@ -1,7 +1,8 @@
 var express     =   require("express"),
     router      =   express.Router(),
     Campground  =   require("../models/campground"),
-    middleware  =   require("../middleware");
+    middleware  =   require("../middleware"),
+    geocoder    =   require('geocoder');
 
 //Show campgrounds route
 router.get("/", function(req, res) {
@@ -27,14 +28,24 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         username: req.user.username
     }
     req.body.camp.author = author;
-    Campground.create(req.body.camp, function(err, campground) {
-        if(err)  {
-            console.log(err);
-        }
-        else {
-            res.redirect("/campgrounds");
-        }
+    geocoder.geocode(req.body.camp.location, function(err, data) {
+        if(err) return console.log(err);
+        req.body.camp.lat = data.results[0].geometry.location.lat;
+        req.body.camp.lng = data.results[0].geometry.location.lng;
+        req.body.camp.location = data.results[0].formatted_address;
+        
+        Campground.create(req.body.camp, function(err, campground) {
+            if(err)  {
+                console.log(err);
+            }
+            else {
+                console.log(campground);
+                res.redirect("/campgrounds");
+            }
+        });
+        
     });
+
 });
 
 // New campground page
@@ -65,8 +76,14 @@ router.get("/:id/edit", middleware.checkCampOwnership, function(req, res) {
 
 //UPDATE CAMPGROUND
 router.put("/:id", middleware.checkCampOwnership, function(req, res) {
-    Campground.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updatedCamp) {
-        res.redirect("/campgrounds/" + req.params.id);
+    geocoder.geocode(req.body.camp.location, function (err, data) {
+        if(err) return console.log(err);
+        req.body.camp.lat = data.results[0].geometry.location.lat;
+        req.body.camp.lng = data.results[0].geometry.location.lng;
+        req.body.camp.location = data.results[0].formatted_address;
+        Campground.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updatedCamp) {
+            res.redirect("/campgrounds/" + req.params.id);
+        });
     });
 });
 // DELETE CAMPGROUND
