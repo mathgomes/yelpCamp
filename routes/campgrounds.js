@@ -6,8 +6,12 @@ var express     =   require("express"),
 
 //Show campgrounds route
 router.get("/", function(req, res) {
-
-    Campground.find({}, function(err, campgrounds) {
+    var queryObj = {}
+    if(req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        queryObj.name = regex;
+    }
+    Campground.find(queryObj, function(err, campgrounds) {
         if(err) {
             console.log(err);
         }
@@ -92,6 +96,10 @@ router.delete("/:id", middleware.checkCampOwnership, function(req, res) {
         res.redirect("/campgrounds");
     });
 });
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router;
