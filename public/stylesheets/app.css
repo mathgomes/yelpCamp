@@ -45,6 +45,9 @@ p,h1,h2,h3,h4,h5,h6 {
     top: 10px;
     z-index: 10;
 }
+.block {
+    padding-top: 2rem;
+}
 /* google maps API */
 #map {
     height: 400px;
