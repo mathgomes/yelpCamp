@@ -2,7 +2,6 @@ var expressSanitizer    =   require("express-sanitizer"),
     methodOverride      =   require('method-override'),
     localStrategy       =   require("passport-local"),
     bodyParser  =   require("body-parser"),
-    mongoose    =   require("mongoose"),
     passport    =   require("passport"),
     express     =   require("express"),
     User        =   require("./models/user"),
@@ -13,7 +12,7 @@ var expressSanitizer    =   require("express-sanitizer"),
 var campgroundRouter    =   require("./routes/campgrounds"),
     userRouter          =   require("./routes/users"),
     commentRouter       =   require("./routes/comments"),
-    indexRouter         =   require("./routes/index");
+    indexRouter         =   require("./routes");
 
 
 app.set("view engine", "ejs");
@@ -44,7 +43,6 @@ app.use(function(req, res, next) {
     return next();
 });
 
-mongoose.connect("mongodb://localhost/yelpcamp", {useMongoClient: true});
 
 app.use("/", indexRouter);
 app.use(userRouter);
