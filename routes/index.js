@@ -6,8 +6,9 @@ var express     =   require("express"),
 //seedDB();
 
 // Mongoose connection
-// mongoose.connect("mongodb://localhost/yelpcamp", {useMongoClient: true});
-mongoose.connect("mongodb://math:math@ds149335.mlab.com:49335/yelpcamp", {useMongoClient: true});
+var dburl = process.env.DATABASEURL || "mongodb://localhost/yelpcamp";
+mongoose.connect(dburl, {useMongoClient: true});
+
 router.get("/", function(req, res) {
     res.render("landing");
 });

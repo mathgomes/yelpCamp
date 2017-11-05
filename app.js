@@ -49,6 +49,7 @@ app.use(userRouter);
 app.use("/campgrounds/:id/comments", commentRouter);
 app.use("/campgrounds", campgroundRouter);
 
-app.listen(process.env.PORT, process.env.IP, function() {
+var port = process.env.PORT || 3000;
+app.listen(port, process.env.IP, function() {
     console.log("listening on port " + process.env.PORT);
 });
